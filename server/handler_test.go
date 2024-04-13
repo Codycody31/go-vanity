@@ -1,17 +1,20 @@
 // server_test.go
 
-package main
+package server
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"go.codycody31.dev/go-vanity/config"
 )
 
 func TestServer(t *testing.T) {
-	cfg := &Config{
-		Packages: []Package{
-			{Path: "go.example.com/mylib", Repo: "https://github.com/username/mylib"},
+	cfg := &config.Config{
+		Domain: "go.example.com",
+		Packages: []config.Package{
+			{Path: "mylib", Repo: "https://github.com/username/mylib"},
 		},
 	}
 
@@ -20,7 +23,7 @@ func TestServer(t *testing.T) {
 	defer server.Close()
 
 	// Test if the server responds with the correct meta tag
-	res, err := http.Get(server.URL + "/go.example.com/mylib")
+	res, err := http.Get(server.URL + "/mylib")
 	if err != nil {
 		t.Fatal(err)
 	}

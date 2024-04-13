@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"go.codycody31.dev/go-vanity/config"
+	"go.codycody31.dev/go-vanity/server"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Failed to load config: %v", err)
 	}
 
-	router := NewRouter(cfg)
+	router := server.NewRouter(cfg)
 
 	log.Println("Server is running on :8080")
 	if err := http.ListenAndServe(":8080", router); err != nil {
