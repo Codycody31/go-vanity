@@ -6,6 +6,8 @@ import (
 	"flag"
 	"log"
 	"net/http"
+
+	"go.codycody31.dev/go-vanity/config"
 )
 
 func main() {
@@ -13,7 +15,7 @@ func main() {
 	flag.StringVar(&configPath, "config", "config.yaml", "Path to config file")
 	flag.Parse()
 
-	cfg, err := LoadConfig(configPath)
+	cfg, err := config.LoadConfig(configPath)
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
