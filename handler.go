@@ -17,7 +17,7 @@ func NewRouter(cfg *Config) *mux.Router {
 		path, repo := pkg.Path, pkg.Repo
 		router.HandleFunc("/"+path, func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/html")
-			fmt.Fprintf(w, `<meta name="go-import" content="%s git %s">`, path, repo)
+			fmt.Fprintf(w, `<meta name="go-import" content="%s git %s">`, cfg.Domain+"/"+path, repo)
 		}).Methods("GET")
 	}
 	return router

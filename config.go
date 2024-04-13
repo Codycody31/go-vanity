@@ -3,12 +3,14 @@
 package main
 
 import (
-	"gopkg.in/yaml.v2"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 // Config structure to hold package configurations
 type Config struct {
+	Domain   string    `yaml:"domain"`
 	Packages []Package `yaml:"packages"`
 }
 
@@ -31,5 +33,11 @@ func LoadConfig(path string) (*Config, error) {
 	if err := decoder.Decode(&config); err != nil {
 		return nil, err
 	}
+
+	// If domain contains a trailing slash, remove it
+	if config.Domain[len(config.Domain)-1] == '/' {
+		config.Domain = config.Domain[:len(config.Domain)-1]
+	}
+
 	return &config, nil
 }
