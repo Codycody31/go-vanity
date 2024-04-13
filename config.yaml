@@ -1,0 +1,6 @@
+domain: "go.codycody31.dev"
+packages:
+  - path: "mylib"
+    repo: "https://github.com/username/mylib"
+  - path: "myotherlib"
+    repo: "https://github.com/username/myotherlib"
