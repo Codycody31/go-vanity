@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"go.codycody31.dev/go-vanity/config"
+	"go.codycody31.dev/vanity/config"
 )
 
 func TestServer(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"go.codycody31.dev/go-vanity/config"
+	"go.codycody31.dev/vanity/config"
 
 	"github.com/gorilla/mux"
 )

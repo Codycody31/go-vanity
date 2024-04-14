@@ -1,6 +1,6 @@
 domain: "go.codycody31.dev"
 packages:
-  - path: "go-vanity"
+  - path: "vanity"
     repo: "https://github.com/Codycody31/go-vanity"
   - path: "myotherlib"
     repo: "https://github.com/username/myotherlib"

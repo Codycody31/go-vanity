@@ -1,4 +1,4 @@
-module go.codycody31.dev/go-vanity
+module go.codycody31.dev/vanity
 
 go 1.22
 

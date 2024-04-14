@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"go.codycody31.dev/go-vanity/config"
-	"go.codycody31.dev/go-vanity/server"
+	"go.codycody31.dev/vanity/config"
+	"go.codycody31.dev/vanity/server"
 )
 
 func main() {
