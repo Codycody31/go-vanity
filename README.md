@@ -1,51 +1,53 @@
 # Go Vanity URL Server
 
-This Go Vanity URL Server provides a simple way to use custom URLs for your Go packages hosted on GitHub. It serves as a redirection point that allows `go get` to fetch packages from custom paths.
+The Go Vanity URL Server simplifies creating custom URLs for Go packages, particularly those hosted on GitHub. It acts as a redirection service, facilitating `go get` operations for your customized package paths.
 
 ## Features
 
-- Easy configuration with a YAML file.
-- Supports custom package paths.
-- Simple and clear structure for easy enhancements and maintenance.
+- Configurable via a simple YAML file.
+- Supports custom paths for Go packages.
+- Designed for straightforward enhancements and easy maintenance.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you start, ensure you have Go installed on your machine. This project uses Go modules, so Go 1.11+ is required. You can check your Go version using:
+- **Go Installation**: This project requires Go 1.11 or higher due to its dependency on Go modules. You can verify your Go version with:
 
-```bash
-go version
-```
+  ```bash
+  go version
+  ```
 
 ### Installation
 
-Clone the repository to your local machine:
+1. **Clone the Repository**:
+   Clone the project to your local environment:
 
-```bash
-git clone https://github.com/Codycody31/go-vanity.git
-cd go-vanity
-```
+   ```bash
+   git clone https://github.com/Codycody31/go-vanity.git
+   cd go-vanity
+   ```
 
-Build the project:
+2. **Build the Server**:
+   Compile the server from the source code:
 
-```bash
-go build
-```
+   ```bash
+   go build -o vanity
+   ```
 
 ### Running the Server
 
-To start the server, run:
+To run the server:
 
 ```bash
 ./vanity
 ```
 
-By default, the server reads the configuration from `config.yaml` and starts on port 8080. You can visit `http://localhost:8080/your-package-path` to see the redirection metadata.
+By default, the server utilizes `config.yaml` from the current directory and listens on port 8080. You can access `http://localhost:8080/your-package-path` to test the redirection.
 
 ### Configuration
 
-The server is configured via a `config.yaml` file located in the root directory. Here's an example configuration:
+The server's behavior is controlled through the `config.yaml` file. Here’s an example configuration that specifies the domain and package repositories:
 
 ```yaml
 domain: "go.example.com"
@@ -56,24 +58,34 @@ packages:
     repo: "https://github.com/username/myotherlib"
 ```
 
-Domain is the custom domain name for your Go packages.
+- `domain`: Your custom domain for hosting Go packages.
+- `packages`: A list of packages with their paths and repository URLs.
 
-Each item under `packages` should include:
-- `path`: The custom URL path for your Go package.
-- `repo`: The actual GitHub repository URL where the Go package is hosted.
+**Environment Variables**:
 
-When serving this site, you can have the `config.yaml` file in the same directory as the server binary. However we also support setting a environment variable `VANITY_CONFIG` to specify the path to the configuration file. Along with that, you can also set the environment variable `VANITY_CONFIG_URL` to specify the URL to the configuration file, for example you can server all vanity configurations from a droppy server.
+- `VANITY_CONFIG`: Set this to specify a local path to an alternative configuration file.
+- `VANITY_CONFIG_URL`: Set this to specify a URL where the configuration file can be fetched, useful for centralized configuration management.
+
+### Environment Setup
+
+You can set environment variables directly or include them in a startup script:
+
+```bash
+export VANITY_CONFIG="/path/to/your/config.yaml"
+export VANITY_CONFIG_URL="https://example.com/config.yaml"
+./vanity
+```
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+We welcome contributions from the community. To contribute:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the repository.
+2. Create a new branch for your feature (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -am 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Submit a pull request.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License - see the `LICENSE` file for details.
