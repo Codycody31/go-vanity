@@ -10,6 +10,8 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 FROM scratch
 ENV GODEBUG=netdns=go
 
+# copy certs from build image
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=build /src/dist/vanity /bin/
 
 ENTRYPOINT ["/bin/vanity"]
