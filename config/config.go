@@ -1,9 +1,9 @@
-// config.go
-
 package config
 
 import (
 	"errors"
+	"io"
+	"net/http"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -21,39 +21,53 @@ type Package struct {
 	Repo string `yaml:"repo"`
 }
 
-// LoadConfig reads configuration from a YAML file into Config struct
-func LoadConfig(path string) (*Config, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
+// LoadConfig reads configuration from a YAML file or URL into the Config struct
+func LoadConfig(path string, url string) (*Config, error) {
+	var reader io.Reader
+
+	if url != "" {
+		// Load from URL
+		resp, err := http.Get(url)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			return nil, errors.New("failed to fetch config from URL")
+		}
+		reader = resp.Body
+	} else {
+		// Load from file
+		file, err := os.Open(path)
+		if err != nil {
+			return nil, err
+		}
+		defer file.Close()
+		reader = file
 	}
-	defer file.Close()
 
 	var config Config
-	decoder := yaml.NewDecoder(file)
+	decoder := yaml.NewDecoder(reader)
 	if err := decoder.Decode(&config); err != nil {
 		return nil, err
 	}
 
-	// If domain contains a trailing slash, remove it
-	if config.Domain[len(config.Domain)-1] == '/' {
+	// Normalize the domain name by removing any trailing slashes
+	if len(config.Domain) > 0 && config.Domain[len(config.Domain)-1] == '/' {
 		config.Domain = config.Domain[:len(config.Domain)-1]
 	}
 
-	// Then perform some basic validation
+	// Perform basic validation
 	if config.Domain == "" {
 		return nil, errors.New("Domain is required")
 	}
-
 	if len(config.Packages) == 0 {
 		return nil, errors.New("At least one package is required")
 	}
-
 	for _, pkg := range config.Packages {
 		if pkg.Path == "" {
 			return nil, errors.New("Package path is required")
 		}
-
 		if pkg.Repo == "" {
 			return nil, errors.New("Package repo is required")
 		}

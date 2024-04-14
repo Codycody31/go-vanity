@@ -1,4 +1,4 @@
-go-vanity
+vanity
 vendor
 config.yaml
 .env

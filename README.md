@@ -38,7 +38,7 @@ go build
 To start the server, run:
 
 ```bash
-./go-vanity
+./vanity
 ```
 
 By default, the server reads the configuration from `config.yaml` and starts on port 8080. You can visit `http://localhost:8080/your-package-path` to see the redirection metadata.
@@ -48,10 +48,11 @@ By default, the server reads the configuration from `config.yaml` and starts on 
 The server is configured via a `config.yaml` file located in the root directory. Here's an example configuration:
 
 ```yaml
+domain: "go.example.com"
 packages:
-  - path: "go.example.com/mylib"
+  - path: "mylib"
     repo: "https://github.com/username/mylib"
-  - path: "go.example.com/myotherlib"
+  - path: "myotherlib"
     repo: "https://github.com/username/myotherlib"
 ```
 
@@ -72,7 +73,3 @@ Contributions are what make the open source community such an amazing place to l
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-## Contact
-
-Project Link: [https://github.com/yourusername/go-vanity](https://github.com/yourusername/go-vanity)

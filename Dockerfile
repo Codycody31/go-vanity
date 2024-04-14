@@ -6,6 +6,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o go-vanity
+RUN go build -o vanity
 
-CMD ["./go-vanity"]
+CMD ["./vanity"]
