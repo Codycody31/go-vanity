@@ -23,7 +23,7 @@ go version
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/go-vanity.git
+git clone https://github.com/Codycody31/go-vanity.git
 cd go-vanity
 ```
 
@@ -56,9 +56,13 @@ packages:
     repo: "https://github.com/username/myotherlib"
 ```
 
+Domain is the custom domain name for your Go packages.
+
 Each item under `packages` should include:
 - `path`: The custom URL path for your Go package.
 - `repo`: The actual GitHub repository URL where the Go package is hosted.
+
+When serving this site, you can have the `config.yaml` file in the same directory as the server binary. However we also support setting a environment variable `VANITY_CONFIG` to specify the path to the configuration file. Along with that, you can also set the environment variable `VANITY_CONFIG_URL` to specify the URL to the configuration file, for example you can server all vanity configurations from a droppy server.
 
 ## Contributing
 
