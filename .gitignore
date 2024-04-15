@@ -29,5 +29,5 @@ extras/
 /build/
 /dist/
 
-config.yaml
+vanity.yaml
 vanity

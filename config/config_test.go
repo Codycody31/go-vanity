@@ -11,7 +11,7 @@ import (
 
 func TestLoadConfigFromFile(t *testing.T) {
 	// Create a temporary YAML file
-	tempFile, err := os.CreateTemp("", "config.yaml")
+	tempFile, err := os.CreateTemp("", "vanity.yaml")
 	if err != nil {
 		t.Fatalf("Cannot create temporary file: %v", err)
 	}

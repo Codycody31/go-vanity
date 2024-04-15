@@ -28,7 +28,7 @@ func main() {
 			&cli.StringFlag{
 				Name:    "config",
 				EnvVars: []string{"VANITY_CONFIG"}, // [1]
-				Value:   "config.yaml",
+				Value:   "vanity.yaml",
 				Usage:   "Path to config file",
 			},
 			&cli.StringFlag{
@@ -50,7 +50,7 @@ func main() {
 			port := string(":") + c.String("port")
 
 			if configPath == "" && c.Bool("in-container") {
-				configPath = "/etc/vanity/config.yaml"
+				configPath = "/etc/vanity/vanity.yaml"
 			}
 
 			cfg, err := config.LoadConfig(configPath, configURL)
