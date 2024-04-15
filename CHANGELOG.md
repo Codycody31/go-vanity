@@ -8,4 +8,5 @@
 
 ### 📈 Enhancement
 
+- Add DisableRootPackagesPage field to Config struct in config.go [[#3](https://github.com/Codycody31/go-vanity/pull/3)]
 - Update README.md with Go Vanity URL Server configuration example [[#1](https://github.com/Codycody31/go-vanity/pull/1)]
