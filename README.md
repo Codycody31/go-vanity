@@ -54,8 +54,10 @@ domain: "go.example.com"
 packages:
   - path: "mylib"
     repo: "https://github.com/username/mylib"
+    vcs: "git"
   - path: "myotherlib"
     repo: "https://github.com/username/myotherlib"
+    vcs: "git"
 ```
 
 - `domain`: Your custom domain for hosting Go packages.

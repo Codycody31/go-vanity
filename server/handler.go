@@ -20,17 +20,18 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		router.HandleFunc("/"+path, func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/html")
 
-			// If go-get is not provided, redirect to the pgk.go.dev page
+			// If go-get is not provided, redirect to the pkg.go.dev page
 			if r.URL.Query().Get("go-get") != "1" {
 				http.Redirect(w, r, "https://pkg.go.dev/"+cfg.Domain+"/"+path, http.StatusFound)
 				return
 			}
 
+			// Response for go-get query
 			fmt.Fprintf(w, `<meta name="go-import" content="%s %s %s">`, cfg.Domain+"/"+path, vcs, repo)
 		}).Methods("GET")
 	}
 
-	// Then, if index is requested, show the list of packages with go-get meta tags
+	// If index is requested, show the list of packages with links to both package details and repository
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		fmt.Fprintf(w, `<!DOCTYPE html>
@@ -64,6 +65,9 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		a:hover {
 			text-decoration: underline;
 		}
+		.repo-link {
+			color: #007700; /* Dark green for visibility */
+		}
 	</style>
 </head>
 <body>
@@ -71,7 +75,7 @@ func NewRouter(cfg *config.Config) *mux.Router {
 	<ul>
 	`)
 		for _, pkg := range cfg.Packages {
-			fmt.Fprintf(w, `<li><a href="/%s">%s</a></li>`, pkg.Path, pkg.Path)
+			fmt.Fprintf(w, `<li><a href="/%s">%s</a> (<a href="%s" class="repo-link">Repo</a>)</li>`, pkg.Path, pkg.Path, pkg.Repo)
 		}
 		fmt.Fprintf(w, "</ul></body></html>")
 	}).Methods("GET")
