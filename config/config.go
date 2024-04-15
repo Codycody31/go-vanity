@@ -11,8 +11,9 @@ import (
 
 // Config structure to hold package configurations
 type Config struct {
-	Domain   string    `yaml:"domain"`
-	Packages []Package `yaml:"packages"`
+	Domain                  string    `yaml:"domain"`
+	Packages                []Package `yaml:"packages"`
+	DisableRootPackagesPage bool      `yaml:"disableRootPackagesPage"`
 }
 
 // Package defines a single Go package configuration

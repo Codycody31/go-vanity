@@ -31,10 +31,11 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		}).Methods("GET")
 	}
 
-	// If index is requested, show the list of packages with links to both package details and repository
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html")
-		fmt.Fprintf(w, `<!DOCTYPE html>
+	if !cfg.DisableRootPackagesPage {
+		// If index is requested, show the list of packages with links to both package details and repository
+		router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "text/html")
+			fmt.Fprintf(w, `<!DOCTYPE html>
 <html>
 <head>
 	<title>Packages</title>
@@ -74,11 +75,12 @@ func NewRouter(cfg *config.Config) *mux.Router {
 	<h1>Available Packages</h1>
 	<ul>
 	`)
-		for _, pkg := range cfg.Packages {
-			fmt.Fprintf(w, `<li><a href="/%s">%s</a> (<a href="%s" class="repo-link">Repo</a>)</li>`, pkg.Path, pkg.Path, pkg.Repo)
-		}
-		fmt.Fprintf(w, "</ul></body></html>")
-	}).Methods("GET")
+			for _, pkg := range cfg.Packages {
+				fmt.Fprintf(w, `<li><a href="/%s">%s</a> (<a href="%s" class="repo-link">Repo</a>)</li>`, pkg.Path, pkg.Path, pkg.Repo)
+			}
+			fmt.Fprintf(w, "</ul></body></html>")
+		}).Methods("GET")
+	}
 
 	return router
 }
