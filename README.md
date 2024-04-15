@@ -43,11 +43,11 @@ To run the server:
 ./vanity
 ```
 
-By default, the server utilizes `config.yaml` from the current directory and listens on port 8080. You can access `http://localhost:8080/your-package-path` to test the redirection.
+By default, the server utilizes `vanity.yaml` from the current directory and listens on port 8080. You can access `http://localhost:8080/your-package-path` to test the redirection.
 
 ### Configuration
 
-The server's behavior is controlled through the `config.yaml` file. Here’s an example configuration that specifies the domain and package repositories:
+The server's behavior is controlled through the `vanity.yaml` file. Here’s an example configuration that specifies the domain and package repositories:
 
 ```yaml
 domain: "go.example.com"
@@ -63,6 +63,8 @@ packages:
 - `domain`: Your custom domain for hosting Go packages.
 - `packages`: A list of packages with their paths and repository URLs.
 
+If would would like to ensure the info your are setting is correct: you can either add `# yaml-language-server: $schema=schema/vanity-schema.json` to the top of your `vanity.yaml` file if using VSCode in the project, or you can add `# yaml-language-server: $schema=https://raw.githubusercontent.com/Codycody31/go-vanity/main/schema/vanity-schema.json` to the top of your `vanity.yaml` file if using any other editor or if you don't have the schema locally.
+
 **Environment Variables**:
 
 - `VANITY_CONFIG`: Set this to specify a local path to an alternative configuration file.
@@ -74,8 +76,8 @@ You can set environment variables directly or include them in a startup script:
 
 ```bash
 export VANITY_PORT="8080"
-export VANITY_CONFIG="/path/to/your/config.yaml"
-export VANITY_CONFIG_URL="https://example.com/config.yaml"
+export VANITY_CONFIG="/path/to/your/vanity.yaml"
+export VANITY_CONFIG_URL="https://example.com/vanity.yaml"
 ./vanity
 ```
 
@@ -128,19 +130,19 @@ docker pull insidiousfiddler/vanity
 ### Running the Server with Docker
 
 1. **Using a Local Configuration File**:
-   To run the server using a local configuration file, you can mount the configuration directory to the Docker container. Make sure your `config.yaml` file is in a suitable directory, then use the following command to start the server:
+   To run the server using a local configuration file, you can mount the configuration directory to the Docker container. Make sure your `vanity.yaml` file is in a suitable directory, then use the following command to start the server:
 
    ```bash
    docker run -p 8080:8080 -v /path/to/your/config/directory:/etc/vanity insidiousfiddler/vanity
    ```
 
-   This command mounts your local directory containing the `config.yaml` at `/etc/vanity` inside the container, which is the default path the Docker image expects for the configuration file.
+   This command mounts your local directory containing the `vanity.yaml` at `/etc/vanity` inside the container, which is the default path the Docker image expects for the configuration file.
 
 2. **Using a Remote Configuration File**:
    If you prefer to fetch the configuration from a remote URL, set the `VANITY_CONFIG_URL` environment variable when running the Docker container:
 
    ```bash
-   docker run -p 8080:8080 -e VANITY_CONFIG_URL="https://example.com/config.yaml" insidiousfiddler/vanity
+   docker run -p 8080:8080 -e VANITY_CONFIG_URL="https://example.com/vanity.yaml" insidiousfiddler/vanity
    ```
 
    This setup is useful for centralized configuration management, allowing you to update the configuration without rebuilding or restarting containers manually.
