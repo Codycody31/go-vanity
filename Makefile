@@ -150,19 +150,19 @@ build-tarball: ## Build tar archive
 
 release: ## Create binaries for release
 	# compile
-	GOOS=linux   GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_amd64       go.codycody31.dev/vanity
-	GOOS=linux   GOARCH=arm64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_arm64       go.codycody31.dev/vanity
-	GOOS=linux   GOARCH=arm   CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_arm         go.codycody31.dev/vanity
-	GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/windows_amd64.exe go.codycody31.dev/vanity
-	GOOS=darwin  GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/darwin_amd64      go.codycody31.dev/vanity
-	GOOS=darwin  GOARCH=arm64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/darwin_arm64      go.codycody31.dev/vanity
+	GOOS=linux   GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_amd64/vanity       go.codycody31.dev/vanity
+	GOOS=linux   GOARCH=arm64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_arm64/vanity       go.codycody31.dev/vanity
+	GOOS=linux   GOARCH=arm   CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/linux_arm/vanity        go.codycody31.dev/vanity
+	GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/windows_amd64/vanity.exe go.codycody31.dev/vanity
+	GOOS=darwin  GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/darwin_amd64/vanity      go.codycody31.dev/vanity
+	GOOS=darwin  GOARCH=arm64 CGO_ENABLED=0 go build -ldflags '${LDFLAGS}' -tags 'grpcnotrace $(TAGS)' -o dist/darwin_arm64/vanity      go.codycody31.dev/vanity
 	# tar binary files
-	tar -cvzf dist/vanity_linux_amd64.tar.gz   -C dist/linux_amd64   vanity
-	tar -cvzf dist/vanity_linux_arm64.tar.gz   -C dist/linux_arm64   vanity
-	tar -cvzf dist/vanity_linux_arm.tar.gz     -C dist/linux_arm     vanity
-	tar -cvzf dist/vanity_windows_amd64.tar.gz -C dist/windows_amd64 vanity.exe
-	tar -cvzf dist/vanity_darwin_amd64.tar.gz  -C dist/darwin_amd64  vanity
-	tar -cvzf dist/vanity_darwin_arm64.tar.gz  -C dist/darwin_arm64  vanity
+	tar -cvzf dist/linux_amd64.tar.gz   -C dist/linux_amd64   vanity
+	tar -cvzf dist/linux_arm64.tar.gz   -C dist/linux_arm64   vanity
+	tar -cvzf dist/linux_arm.tar.gz     -C dist/linux_arm     vanity
+	tar -cvzf dist/windows_amd64.tar.gz -C dist/windows_amd64 vanity.exe
+	tar -cvzf dist/darwin_amd64.tar.gz  -C dist/darwin_amd64  vanity
+	tar -cvzf dist/darwin_arm64.tar.gz  -C dist/darwin_arm64  vanity
 
 release-checksums: ## Create checksums for all release files
 	# generate shas for tar files
