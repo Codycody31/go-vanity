@@ -18,6 +18,13 @@ func main() {
 		EnableBashCompletion: true,
 		Version:              version.String(),
 		Flags: []cli.Flag{
+			&cli.IntFlag{
+				Name:    "port",
+				Aliases: []string{"p"},
+				EnvVars: []string{"VANITY_PORT"},
+				Value:   8080,
+				Usage:   "Port to run the server on",
+			},
 			&cli.StringFlag{
 				Name:    "config",
 				EnvVars: []string{"VANITY_CONFIG"}, // [1]
@@ -40,6 +47,7 @@ func main() {
 		Action: func(c *cli.Context) error {
 			configPath := c.String("config")
 			configURL := c.String("config-url")
+			port := string(":") + c.String("port")
 
 			if configPath == "" && c.Bool("in-container") {
 				configPath = "/etc/vanity/config.yaml"
@@ -52,8 +60,9 @@ func main() {
 
 			router := server.NewRouter(cfg)
 
-			log.Println("Server is running on :8080")
-			if err := http.ListenAndServe(":8080", router); err != nil {
+			log.Printf("Starting vanity server with version '%s'", version.String())
+			log.Printf("Server is running on %s", port)
+			if err := http.ListenAndServe(port, router); err != nil {
 				log.Fatalf("Failed to start server: %v", err)
 			}
 			return nil
