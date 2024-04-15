@@ -1,51 +1,40 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "domain": {
-            "type": "string",
-            "description": "The custom domain for hosting Go packages."
-        },
-        "disableRootPackagesPage": {
-            "type": "boolean",
-            "description": "Flag to disable the root page that lists all packages."
-        },
-        "packages": {
-            "type": "array",
-            "description": "List of packages with their paths, repositories, and version control systems.",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "path": {
-                        "type": "string",
-                        "description": "The path used to import the Go package."
-                    },
-                    "repo": {
-                        "type": "string",
-                        "description": "URL of the repository where the Go package is hosted."
-                    },
-                    "vcs": {
-                        "type": "string",
-                        "description": "Version control system type.",
-                        "enum": [
-                            "git",
-                            "hg",
-                            "svn"
-                        ]
-                    }
-                },
-                "required": [
-                    "path",
-                    "repo",
-                    "vcs"
-                ],
-                "additionalProperties": false
-            }
-        }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "The custom domain for hosting Go packages."
     },
-    "required": [
-        "domain",
-        "packages"
-    ],
-    "additionalProperties": false
+    "disableRootPackagesPage": {
+      "type": "boolean",
+      "description": "Flag to disable the root page that lists all packages."
+    },
+    "packages": {
+      "type": "array",
+      "description": "List of packages with their paths, repositories, and version control systems.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "The path used to import the Go package."
+          },
+          "repo": {
+            "type": "string",
+            "description": "URL of the repository where the Go package is hosted."
+          },
+          "vcs": {
+            "type": "string",
+            "description": "Version control system type.",
+            "enum": ["git", "hg", "svn"]
+          }
+        },
+        "required": ["path", "repo", "vcs"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["domain", "packages"],
+  "additionalProperties": false
 }
