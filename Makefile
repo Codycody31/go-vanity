@@ -96,6 +96,9 @@ vendor: ## Update the vendor directory
 	go mod tidy
 	go mod vendor
 
+format: install-tools ## Format source code
+	@gofumpt -extra -w .
+
 .PHONY: clean
 clean: ## Clean build artifacts
 	go clean -i ./...
@@ -111,7 +114,20 @@ check-xgo: ## Check if xgo is installed
 		$(GO) install src.techknowlogick.com/xgo@latest; \
 	fi
 
+install-tools: ## Install development tools
+	@hash golangci-lint > /dev/null 2>&1; if [ $$? -ne 0 ]; then \
+		go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest ; \
+	fi ; \
+	hash gofumpt > /dev/null 2>&1; if [ $$? -ne 0 ]; then \
+		go install mvdan.cc/gofumpt@latest; \
+	fi
+
 ##@ Test
+
+.PHONY: lint
+lint: install-tools ## Lint code
+	@echo "Running golangci-lint"
+	golangci-lint run
 
 test: ## Test code
 	go test -race -cover -coverprofile agent-coverage.out -timeout 30s go.codycody31.dev/vanity/...

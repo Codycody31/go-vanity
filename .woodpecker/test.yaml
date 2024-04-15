@@ -1,0 +1,45 @@
+variables:
+  - &golang_image "docker.io/golang:1.21.5"
+  - &when
+    - path: &when_path # related config files
+        - ".woodpecker/test.yaml"
+        - ".golangci.yaml"
+        # go source code
+        - "**/*.go"
+        - "go.*"
+      event: pull_request
+    - event: push
+      path: *when_path
+
+when:
+  - event: pull_request
+  - event: push
+    branch: ${CI_REPO_DEFAULT_BRANCH}
+    path: *when_path
+
+steps:
+  vendor:
+    image: *golang_image
+    commands:
+      - go mod vendor
+    when:
+      path:
+        - <<: *when_path
+        - ".woodpecker/**"
+
+  lint:
+    depends_on:
+      - vendor
+    image: *golang_image
+    commands:
+      - make lint
+    when: *when
+
+  test:
+    depends_on:
+      - vendor
+    image: *golang_image
+    commands:
+      - make test
+    when:
+      - path: *when_path
