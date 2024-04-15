@@ -19,6 +19,7 @@ type Config struct {
 type Package struct {
 	Path string `yaml:"path"`
 	Repo string `yaml:"repo"`
+	VCS  string `yaml:"vcs"`
 }
 
 // LoadConfig reads configuration from a YAML file or URL into the Config struct
@@ -70,6 +71,17 @@ func LoadConfig(path string, url string) (*Config, error) {
 		}
 		if pkg.Repo == "" {
 			return nil, errors.New("Package repo is required")
+		}
+		if pkg.VCS == "" {
+			return nil, errors.New("Package VCS is required")
+		}
+
+		// Validate VCS
+		switch pkg.VCS {
+		case "git", "hg", "svn":
+			// OK
+		default:
+			return nil, errors.New("Invalid VCS: " + pkg.VCS)
 		}
 	}
 
