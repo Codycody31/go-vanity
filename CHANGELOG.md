@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.1.1](https://github.com/Codycody31/go-vanity/releases/tag/2.1.1) - 2024-04-15
+
+### ❤️ Thanks to all contributors! ❤️
+
+@Codycody31
+
+### 🐛 Bug Fixes
+
+- Update build commands in Makefile for release [[#9](https://github.com/Codycody31/go-vanity/pull/9)]
+
 ## [2.1.0](https://github.com/Codycody31/go-vanity/releases/tag/2.1.0) - 2024-04-15
 
 ### ❤️ Thanks to all contributors! ❤️
