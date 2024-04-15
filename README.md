@@ -73,10 +73,43 @@ packages:
 You can set environment variables directly or include them in a startup script:
 
 ```bash
+export VANITY_PORT="8080"
 export VANITY_CONFIG="/path/to/your/config.yaml"
 export VANITY_CONFIG_URL="https://example.com/config.yaml"
 ./vanity
 ```
+
+### Example Usage
+
+Here is an example of how to use the Go Vanity URL Server with the provided configuration:
+
+```yaml
+domain: "go.codycody31.dev"
+packages:
+  - path: "vanity"
+    repo: "https://github.com/Codycody31/go-vanity"
+    vcs: "git"
+  - path: "woodpecker/woodpecker/v2"
+    repo: "https://github.com/woodpecker-ci/woodpecker"
+    vcs: "git"
+  - path: "woodpecker/woodpecker/v3"
+    repo: "https://github.com/woodpecker-ci/woodpecker/v3"
+    vcs: "git"
+  - path: "logger"
+    repo: "https://github.com/Codycody31/go-logger"
+    vcs: "git"
+```
+
+With this configuration, you can access the following packages:
+
+- `go get go.codycody31.dev/vanity`
+- `go get go.codycody31.dev/woodpecker/woodpecker/v2`
+- `go get go.codycody31.dev/woodpecker/woodpecker/v3`
+- `go get go.codycody31.dev/logger`
+
+And the server will redirect the requests to the respective GitHub repositories. We also provide a simple web page to display the list of available packages, this does however result in the root path being redirected to the web page, and not supporting the root path for a package.
+
+![example image](examples/example-web-page.png)
 
 ## Docker Usage
 
