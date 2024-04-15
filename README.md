@@ -78,6 +78,44 @@ export VANITY_CONFIG_URL="https://example.com/config.yaml"
 ./vanity
 ```
 
+## Docker Usage
+
+### Prerequisites
+
+- **Docker Installed**: Ensure you have Docker installed on your system. You can check by running `docker --version`. If not installed, you can download it from the official Docker website.
+
+### Getting the Docker Image
+
+You can pull the pre-built Docker image from the Docker Hub using the following command:
+
+```bash
+docker pull insidiousfiddler/vanity
+```
+
+### Running the Server with Docker
+
+1. **Using a Local Configuration File**:
+   To run the server using a local configuration file, you can mount the configuration directory to the Docker container. Make sure your `config.yaml` file is in a suitable directory, then use the following command to start the server:
+
+   ```bash
+   docker run -p 8080:8080 -v /path/to/your/config/directory:/etc/vanity insidiousfiddler/vanity
+   ```
+
+   This command mounts your local directory containing the `config.yaml` at `/etc/vanity` inside the container, which is the default path the Docker image expects for the configuration file.
+
+2. **Using a Remote Configuration File**:
+   If you prefer to fetch the configuration from a remote URL, set the `VANITY_CONFIG_URL` environment variable when running the Docker container:
+
+   ```bash
+   docker run -p 8080:8080 -e VANITY_CONFIG_URL="https://example.com/config.yaml" insidiousfiddler/vanity
+   ```
+
+   This setup is useful for centralized configuration management, allowing you to update the configuration without rebuilding or restarting containers manually.
+
+### Custom Docker Configuration
+
+For more advanced Docker configurations, such as network settings, logging configurations, or using Docker Compose, you can create a `docker-compose.yml` file or extend the Docker run commands with additional parameters as per your requirements.
+
 ## Contributing
 
 We welcome contributions from the community. To contribute:
