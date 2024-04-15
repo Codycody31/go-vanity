@@ -5,7 +5,7 @@ steps:
     settings:
       release_branch: ${CI_REPO_DEFAULT_BRANCH}
       forge_type: github
-      git_email: github-bot@vmgware.dev
+      git_email: me@codycody31.dev
       github_token:
         from_secret: GITHUB_TOKEN
 
