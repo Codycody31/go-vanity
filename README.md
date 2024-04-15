@@ -12,7 +12,7 @@ The Go Vanity URL Server simplifies creating custom URLs for Go packages, partic
 
 ### Prerequisites
 
-- **Go Installation**: This project requires Go 1.11 or higher due to its dependency on Go modules. You can verify your Go version with:
+- **Go Installation**: This project requires Go 1.22 or higher. You can verify your Go version with:
 
   ```bash
   go version
