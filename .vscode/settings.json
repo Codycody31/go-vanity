@@ -4,5 +4,6 @@
             "*vanity.yaml",
             "*vanity.yml"
         ]
-    }
+    },
+    "nuxt.isNuxtApp": false
 }
