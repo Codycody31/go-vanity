@@ -24,7 +24,7 @@ type Package struct {
 }
 
 // LoadConfig reads configuration from a YAML file or URL into the Config struct
-func LoadConfig(path string, url string) (*Config, error) {
+func LoadConfig(path, url string) (*Config, error) {
 	var reader io.Reader
 
 	if url != "" {
