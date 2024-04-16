@@ -21,7 +21,7 @@ func main() {
 		Version:              version.String(),
 		Compiled:             time.Now(),
 		Authors: []*cli.Author{
-			&cli.Author{
+			{
 				Name: "Insidious Fiddler",
 			},
 		},
