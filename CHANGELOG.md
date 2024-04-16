@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.2.0](https://github.com/Codycody31/go-vanity/releases/tag/2.2.0) - 2024-04-15
+## [2.2.0](https://github.com/Codycody31/go-vanity/releases/tag/2.2.0) - 2024-04-16
 
 ### ❤️ Thanks to all contributors! ❤️
 
@@ -8,6 +8,7 @@
 
 ### 📈 Enhancement
 
+- General updates [[#14](https://github.com/Codycody31/go-vanity/pull/14)]
 - Add VSCode settings for YAML schema validation [[#12](https://github.com/Codycody31/go-vanity/pull/12)]
 
 ## [2.1.1](https://github.com/Codycody31/go-vanity/releases/tag/2.1.1) - 2024-04-15
