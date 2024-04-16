@@ -33,7 +33,12 @@ func LoadConfig(path, url string) (*Config, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer resp.Body.Close()
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+
+			}
+		}(resp.Body)
 		if resp.StatusCode != http.StatusOK {
 			return nil, errors.New("failed to fetch config from URL")
 		}
@@ -44,7 +49,12 @@ func LoadConfig(path, url string) (*Config, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer file.Close()
+		defer func(file *os.File) {
+			err := file.Close()
+			if err != nil {
+
+			}
+		}(file)
 		reader = file
 	}
 
