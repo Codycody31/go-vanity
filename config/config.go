@@ -36,7 +36,6 @@ func LoadConfig(path, url string) (*Config, error) {
 		defer func(Body io.ReadCloser) {
 			err := Body.Close()
 			if err != nil {
-
 			}
 		}(resp.Body)
 		if resp.StatusCode != http.StatusOK {
@@ -52,7 +51,6 @@ func LoadConfig(path, url string) (*Config, error) {
 		defer func(file *os.File) {
 			err := file.Close()
 			if err != nil {
-
 			}
 		}(file)
 		reader = file
@@ -71,20 +69,20 @@ func LoadConfig(path, url string) (*Config, error) {
 
 	// Perform basic validation
 	if config.Domain == "" {
-		return nil, errors.New("Domain is required")
+		return nil, errors.New("domain is required")
 	}
 	if len(config.Packages) == 0 {
-		return nil, errors.New("At least one package is required")
+		return nil, errors.New("at least one package is required")
 	}
 	for _, pkg := range config.Packages {
 		if pkg.Path == "" {
-			return nil, errors.New("Package path is required")
+			return nil, errors.New("package path is required")
 		}
 		if pkg.Repo == "" {
-			return nil, errors.New("Package repo is required")
+			return nil, errors.New("package repo is required")
 		}
 		if pkg.VCS == "" {
-			return nil, errors.New("Package VCS is required")
+			return nil, errors.New("package VCS is required")
 		}
 
 		// Validate VCS
