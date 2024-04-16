@@ -16,6 +16,7 @@ func main() {
 		Name:                 "vanity",
 		Usage:                "A server for vanity URLs using the specified configuration file",
 		EnableBashCompletion: true,
+		Suggest:              true,
 		Version:              version.String(),
 		Flags: []cli.Flag{
 			&cli.IntFlag{
@@ -44,26 +45,42 @@ func main() {
 				Usage:   "Set to true if running in a container",
 			},
 		},
+		Commands: []*cli.Command{
+			{
+				Name:  "validate-config",
+				Usage: "Verify the provided config",
+				Action: func(cCtx *cli.Context) error {
+					configPath := cCtx.String("config")
+					configURL := cCtx.String("config-url")
+
+					if configPath == "" && cCtx.Bool("in-container") {
+						configPath = "/etc/vanity/vanity.yaml"
+					}
+
+					_, err := config.LoadConfig(configPath, configURL)
+					if err != nil {
+						log.Fatalf("Failed to load config: %v", err)
+					}
+					log.Println("Config is valid")
+					return nil
+				},
+			},
+			{
+				Name:  "serve",
+				Usage: "Start the vanity server",
+				Action: func(cCtx *cli.Context) error {
+					err := serve(cCtx)
+					if err != nil {
+						return err
+					}
+					return nil
+				},
+			},
+		},
 		Action: func(c *cli.Context) error {
-			configPath := c.String("config")
-			configURL := c.String("config-url")
-			port := string(":") + c.String("port")
-
-			if configPath == "" && c.Bool("in-container") {
-				configPath = "/etc/vanity/vanity.yaml"
-			}
-
-			cfg, err := config.LoadConfig(configPath, configURL)
+			err := serve(c)
 			if err != nil {
-				log.Fatalf("Failed to load config: %v", err)
-			}
-
-			router := server.NewRouter(cfg)
-
-			log.Printf("Starting vanity server with version '%s'", version.String())
-			log.Printf("Server is running on %s", port)
-			if err := http.ListenAndServe(port, router); err != nil {
-				log.Fatalf("Failed to start server: %v", err)
+				return err
 			}
 			return nil
 		},
@@ -73,4 +90,28 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func serve(c *cli.Context) error {
+	configPath := c.String("config")
+	configURL := c.String("config-url")
+	port := ":" + c.String("port")
+
+	if configPath == "" && c.Bool("in-container") {
+		configPath = "/etc/vanity/vanity.yaml"
+	}
+
+	cfg, err := config.LoadConfig(configPath, configURL)
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
+
+	router := server.NewRouter(cfg)
+
+	log.Printf("Starting vanity server with version '%s'", version.String())
+	log.Printf("Server is running on %s", port)
+	if err := http.ListenAndServe(port, router); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
+	return nil
 }
