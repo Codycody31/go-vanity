@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/urfave/cli/v2" // Import the CLI package
 	"go.codycody31.dev/vanity/config"
@@ -18,6 +19,12 @@ func main() {
 		EnableBashCompletion: true,
 		Suggest:              true,
 		Version:              version.String(),
+		Compiled:             time.Now(),
+		Authors: []*cli.Author{
+			&cli.Author{
+				Name: "Insidious Fiddler",
+			},
+		},
 		Flags: []cli.Flag{
 			&cli.IntFlag{
 				Name:    "port",
