@@ -27,7 +27,10 @@ func NewRouter(cfg *config.Config) *mux.Router {
 			}
 
 			// Response for go-get query
-			fmt.Fprintf(w, `<meta name="go-import" content="%s %s %s">`, cfg.Domain+"/"+path, vcs, repo)
+			_, err := fmt.Fprintf(w, `<meta name="go-import" content="%s %s %s">`, cfg.Domain+"/"+path, vcs, repo)
+			if err != nil {
+				return
+			}
 		}).Methods("GET")
 	}
 
@@ -35,7 +38,7 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		// If index is requested, show the list of packages with links to both package details and repository
 		router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/html")
-			fmt.Fprintf(w, `<!DOCTYPE html>
+			_, err := fmt.Fprintf(w, `<!DOCTYPE html>
 <html>
 <head>
 	<title>Packages</title>
@@ -75,10 +78,19 @@ func NewRouter(cfg *config.Config) *mux.Router {
 	<h1>Available Packages</h1>
 	<ul>
 	`)
-			for _, pkg := range cfg.Packages {
-				fmt.Fprintf(w, `<li><a href="/%s">%s</a> (<a href="%s" class="repo-link">Repo</a>)</li>`, pkg.Path, pkg.Path, pkg.Repo)
+			if err != nil {
+				return
 			}
-			fmt.Fprintf(w, "</ul></body></html>")
+			for _, pkg := range cfg.Packages {
+				_, err := fmt.Fprintf(w, `<li><a href="/%s">%s</a> (<a href="%s" class="repo-link">Repo</a>)</li>`, pkg.Path, pkg.Path, pkg.Repo)
+				if err != nil {
+					return
+				}
+			}
+			_, err = fmt.Fprintf(w, "</ul></body></html>")
+			if err != nil {
+				return
+			}
 		}).Methods("GET")
 	}
 

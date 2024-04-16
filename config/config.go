@@ -24,7 +24,7 @@ type Package struct {
 }
 
 // LoadConfig reads configuration from a YAML file or URL into the Config struct
-func LoadConfig(path string, url string) (*Config, error) {
+func LoadConfig(path, url string) (*Config, error) {
 	var reader io.Reader
 
 	if url != "" {
@@ -33,7 +33,11 @@ func LoadConfig(path string, url string) (*Config, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer resp.Body.Close()
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+			}
+		}(resp.Body)
 		if resp.StatusCode != http.StatusOK {
 			return nil, errors.New("failed to fetch config from URL")
 		}
@@ -44,7 +48,11 @@ func LoadConfig(path string, url string) (*Config, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer file.Close()
+		defer func(file *os.File) {
+			err := file.Close()
+			if err != nil {
+			}
+		}(file)
 		reader = file
 	}
 
@@ -61,20 +69,20 @@ func LoadConfig(path string, url string) (*Config, error) {
 
 	// Perform basic validation
 	if config.Domain == "" {
-		return nil, errors.New("Domain is required")
+		return nil, errors.New("domain is required")
 	}
 	if len(config.Packages) == 0 {
-		return nil, errors.New("At least one package is required")
+		return nil, errors.New("at least one package is required")
 	}
 	for _, pkg := range config.Packages {
 		if pkg.Path == "" {
-			return nil, errors.New("Package path is required")
+			return nil, errors.New("package path is required")
 		}
 		if pkg.Repo == "" {
-			return nil, errors.New("Package repo is required")
+			return nil, errors.New("package repo is required")
 		}
 		if pkg.VCS == "" {
-			return nil, errors.New("Package VCS is required")
+			return nil, errors.New("package VCS is required")
 		}
 
 		// Validate VCS
