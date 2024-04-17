@@ -87,18 +87,11 @@ Here is an example of how to use the Go Vanity URL Server with the provided conf
 
 ```yaml
 domain: "go.codycody31.dev"
+disableRootPackagesPage: false
+poweredBy: true
 packages:
   - path: "vanity"
     repo: "https://github.com/Codycody31/go-vanity"
-    vcs: "git"
-  - path: "woodpecker/woodpecker/v2"
-    repo: "https://github.com/woodpecker-ci/woodpecker"
-    vcs: "git"
-  - path: "woodpecker/woodpecker/v3"
-    repo: "https://github.com/woodpecker-ci/woodpecker/v3"
-    vcs: "git"
-  - path: "logger"
-    repo: "https://github.com/Codycody31/go-logger"
     vcs: "git"
 ```
 
