@@ -6,12 +6,11 @@ import (
 	"time"
 
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli/v2"
 	"go.codycody31.dev/vanity/config"
 	"go.codycody31.dev/vanity/server"
-	"go.codycody31.dev/vanity/shared/logger"
 	"go.codycody31.dev/vanity/version"
+	"go.vmgware.dev/logger"
 )
 
 func main() {
@@ -28,9 +27,9 @@ func main() {
 			},
 		},
 		Before: func(c *cli.Context) error {
-			if err := logger.SetupGlobalLogger(c, true); err != nil {
-				return err
-			}
+			// TODO: Use flags to set the log level and log file
+			logger.Setup(logger.DEBUG, "logs/vanity.log") // TODO: Logger should support no file
+			defer logger.Close()
 			return nil
 		},
 		Flags: flags,
@@ -48,9 +47,9 @@ func main() {
 
 					_, err := config.LoadConfig(configPath, configURL)
 					if err != nil {
-						log.Fatal().Err(err).Msg("Failed to load config")
+						logger.Errorf("CONFIG", "Failed to load config: %v", err.Error())
 					}
-					log.Info().Msg("Config is valid")
+					logger.Info("CONFIG", "Config is valid")
 					return nil
 				},
 			},
@@ -77,7 +76,7 @@ func main() {
 
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Failed to run app")
+		logger.Errorf("APP", "Failed to run app: %v", err.Error())
 	}
 }
 
@@ -92,15 +91,15 @@ func serve(c *cli.Context) error {
 
 	cfg, err := config.LoadConfig(configPath, configURL)
 	if err != nil {
-		log.Error().Err(err).Msg("Failed to load config")
+		logger.Errorf("CONFIG", "Failed to load config: %v", err.Error())
 	}
 
 	router := server.NewRouter(cfg)
 
-	log.Info().Msgf("Starting vanity server with version '%s'", version.String())
-	log.Info().Msgf("Server is running on %s", port)
+	logger.Infof("APP", "Starting vanity server with version '%s'", version.String())
+	logger.Infof("APP", "Server is running on %s", port)
 	if err := http.ListenAndServe(port, router); err != nil {
-		log.Info().Msgf("Failed to start server: %v", err)
+		logger.Errorf("APP", "Failed to start server: %v", err.Error())
 	}
 	return nil
 }
