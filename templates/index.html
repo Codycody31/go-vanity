@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Packages</title>
+    <meta charset="utf-8">
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        /* Header styles */
+        h1 {
+            color: #444;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        /* List styles */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        li:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Link styles */
+        a {
+            text-decoration: none;
+            color: #0077cc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .repo-link {
+            color: #009688;
+            /* Teal for visibility */
+        }
+
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styles */
+        p {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Available Packages</h1>
+    <ul>
+        {{range .Packages}}
+        <li><a href="/{{.Path}}">{{.Path}}</a> (<a href="{{.Repo}}" class="repo-link">Repo</a>)</li>
+        {{end}}
+    </ul>
+
+    <p>Powered by <a href="https://github.com/codycody31/go-vanity">go-vanity</a></p>
+</body>
+
+</html>
