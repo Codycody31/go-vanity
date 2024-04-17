@@ -6,6 +6,10 @@
 
 @Codycody31
 
+### 📚 Documentation
+
+- Update vanity packages configuration in README.md [[#19](https://github.com/Codycody31/go-vanity/pull/19)]
+
 ### 📈 Enhancement
 
 - Switch loggers & use template for html [[#17](https://github.com/Codycody31/go-vanity/pull/17)]
