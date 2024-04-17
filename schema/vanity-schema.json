@@ -31,14 +31,25 @@
           "vcs": {
             "type": "string",
             "description": "Version control system type.",
-            "enum": ["git", "hg", "svn"]
+            "enum": [
+              "git",
+              "hg",
+              "svn"
+            ]
           }
         },
-        "required": ["path", "repo", "vcs"],
+        "required": [
+          "path",
+          "repo",
+          "vcs"
+        ],
         "additionalProperties": false
       }
     }
   },
-  "required": ["domain", "packages"],
+  "required": [
+    "domain",
+    "packages"
+  ],
   "additionalProperties": false
 }
