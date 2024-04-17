@@ -1,6 +1,6 @@
 {
     "yaml.schemas": {
-        "https://raw.githubusercontent.com/Codycody31/go-vanity/main/schema/vanity-schema.json": [
+        "schema/vanity-schema.json": [
             "*vanity.yaml",
             "*vanity.yml"
         ]

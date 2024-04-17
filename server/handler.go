@@ -39,7 +39,8 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		// If index is requested, show the list of packages with links to both package details and repository
 		router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			err := templates.Templates.ExecuteTemplate(w, "index.html", map[string]interface{}{
-				"Packages": cfg.Packages,
+				"Packages":  cfg.Packages,
+				"PoweredBy": cfg.PoweredBy,
 			})
 
 			if err != nil {

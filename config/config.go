@@ -14,6 +14,7 @@ type Config struct {
 	Domain                  string    `yaml:"domain"`
 	Packages                []Package `yaml:"packages"`
 	DisableRootPackagesPage bool      `yaml:"disableRootPackagesPage"`
+	PoweredBy               bool      `yaml:"poweredBy"`
 }
 
 // Package defines a single Go package configuration
