@@ -72,6 +72,9 @@ func NewRouter(cfg *config.Config) *mux.Router {
 		.repo-link {
 			color: #007700; /* Dark green for visibility */
 		}
+		.repo-link:hover {
+			text-decoration: underline;
+		}
 	</style>
 </head>
 <body>
