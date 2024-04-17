@@ -29,5 +29,5 @@ extras/
 /build/
 /dist/
 
-vanity.yaml
-vanity
+/vanity.yaml
+/vanity

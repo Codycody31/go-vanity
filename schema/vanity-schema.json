@@ -10,6 +10,10 @@
       "type": "boolean",
       "description": "Flag to disable the root page that lists all packages."
     },
+    "poweredBy": {
+      "type": "boolean",
+      "description": "Flag to show the 'Powered by go-vanity' footer."
+    },
     "packages": {
       "type": "array",
       "description": "List of packages with their paths, repositories, and version control systems.",

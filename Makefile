@@ -134,8 +134,11 @@ test: ## Test code
 
 ##@ Build
 
+build-dev: ## Build for development
+	go build -ldflags '${LDFLAGS}' -o vanity go.codycody31.dev/vanity/cmd/vanity
+
 build: ## Build
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags '${LDFLAGS}' -o dist/vanity${BIN_SUFFIX} go.codycody31.dev/vanity
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -ldflags '${LDFLAGS}' -o dist/vanity${BIN_SUFFIX} go.codycody31.dev/vanity/cmd/vanity
 
 build-tarball: ## Build tar archive
 	mkdir -p dist && tar chzvf dist/vanity-src.tar.gz \
