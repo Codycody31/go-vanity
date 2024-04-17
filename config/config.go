@@ -36,6 +36,7 @@ func LoadConfig(path, url string) (*Config, error) {
 		defer func(Body io.ReadCloser) {
 			err := Body.Close()
 			if err != nil {
+				return
 			}
 		}(resp.Body)
 		if resp.StatusCode != http.StatusOK {
@@ -51,6 +52,7 @@ func LoadConfig(path, url string) (*Config, error) {
 		defer func(file *os.File) {
 			err := file.Close()
 			if err != nil {
+				return
 			}
 		}(file)
 		reader = file

@@ -38,9 +38,13 @@ func NewRouter(cfg *config.Config) *mux.Router {
 	if !cfg.DisableRootPackagesPage {
 		// If index is requested, show the list of packages with links to both package details and repository
 		router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-			templates.Templates.ExecuteTemplate(w, "index.html", map[string]interface{}{
+			err := templates.Templates.ExecuteTemplate(w, "index.html", map[string]interface{}{
 				"Packages": cfg.Packages,
 			})
+
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 		})
 	}
 
