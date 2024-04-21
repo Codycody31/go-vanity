@@ -32,7 +32,7 @@ The Go Vanity URL Server simplifies creating custom URLs for Go packages, partic
    Compile the server from the source code:
 
    ```bash
-   go build -o vanity
+   go build -o vanity go.codycody31.dev/vanity/cmd/vanity
    ```
 
 ### Running the Server
@@ -92,6 +92,15 @@ poweredBy: true
 packages:
   - path: "vanity"
     repo: "https://github.com/Codycody31/go-vanity"
+    vcs: "git"
+  - path: "woodpecker/woodpecker/v2"
+    repo: "https://github.com/woodpecker/woodpecker"
+    vcs: "git"
+  - path: "woodpecker/woodpecker/v3"
+    repo: "https://github.com/woodpecker/woodpecker"
+    vcs: "git"
+  - path: "logger"
+    repo: "https://github.com/Codycody31/logger"
     vcs: "git"
 ```
 
