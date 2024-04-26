@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.2.0](https://github.com/Codycody31/go-vanity/releases/tag/2.2.0) - 2024-04-17
+## [2.2.0](https://github.com/Codycody31/go-vanity/releases/tag/2.2.0) - 2024-04-26
 
 ### ❤️ Thanks to all contributors! ❤️
 
