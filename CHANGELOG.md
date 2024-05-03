@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.2.0](https://github.com/Codycody31/go-vanity/releases/tag/2.2.0) - 2024-05-03
+
+### ❤️ Thanks to all contributors! ❤️
+
+@Codycody31
+
+### 📚 Documentation
+
+- Update vanity packages configuration in README.md [[#19](https://github.com/Codycody31/go-vanity/pull/19)]
+
+### 📈 Enhancement
+
+- Switch loggers & use template for html [[#17](https://github.com/Codycody31/go-vanity/pull/17)]
+- General updates [[#14](https://github.com/Codycody31/go-vanity/pull/14)]
+- Add VSCode settings for YAML schema validation [[#12](https://github.com/Codycody31/go-vanity/pull/12)]
+
 ## [2.1.1](https://github.com/Codycody31/go-vanity/releases/tag/2.1.1) - 2024-04-15
 
 ### ❤️ Thanks to all contributors! ❤️
